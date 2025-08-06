@@ -1,0 +1,12 @@
+{
+  "feishu": {
+    "webhook_url": "https://open.feishu.cn/open-apis/bot/v2/hook/your-webhook-url-here",
+    "security_type": "none",
+    "secret": "",
+    "keywords": []
+  },
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  }
+}
