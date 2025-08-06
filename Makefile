@@ -122,23 +122,45 @@ run-example:
 run:
 	$(GOBUILD) -o $(BINARY_NAME) && ./$(BINARY_NAME)
 
+# Claude Desktop extension targets
+package-claude-extension:
+	mkdir -p release/claude-extension
+	cp -r claude-extension/* release/claude-extension/
+	cd release && zip -r $(BINARY_NAME)-claude-extension-$(VERSION).zip claude-extension/
+	@echo "Claude Desktop extension package created: release/$(BINARY_NAME)-claude-extension-$(VERSION).zip"
+
+install-claude-extension:
+	@echo "Installing Claude Desktop extension..."
+	@if [ "$(shell uname)" = "Darwin" ]; then \
+		cp claude-extension/mcp_feishu_config.json "$$HOME/Library/Application Support/Claude/claude_desktop_config.json" 2>/dev/null || \
+		echo "Please manually copy claude-extension/mcp_feishu_config.json to ~/Library/Application Support/Claude/claude_desktop_config.json"; \
+	elif [ "$(shell uname)" = "Linux" ]; then \
+		mkdir -p "$$HOME/.config/claude-desktop" && \
+		cp claude-extension/mcp_feishu_config.json "$$HOME/.config/claude-desktop/claude_desktop_config.json"; \
+	else \
+		echo "Please manually configure Claude Desktop using claude-extension/mcp_feishu_config.json"; \
+	fi
+	@echo "Remember to set your FEISHU_WEBHOOK_URL in the configuration file"
+
 # Show help
 help:
 	@echo "Available targets:"
-	@echo "  build        - Build the binary"
-	@echo "  clean        - Clean build artifacts"
-	@echo "  test         - Run tests"
-	@echo "  coverage     - Run tests with coverage report"
-	@echo "  deps         - Download and tidy dependencies"
-	@echo "  fmt          - Format code"
-	@echo "  vet          - Vet code"
-	@echo "  lint         - Lint code (requires golangci-lint)"
-	@echo "  build-all    - Cross compile for all platforms"
-	@echo "  docker-build - Build Docker image"
-	@echo "  docker-run   - Run Docker container"
-	@echo "  dev          - Run all development checks"
-	@echo "  install      - Install binary to /usr/local/bin"
-	@echo "  release      - Create release packages"
-	@echo "  run-example  - Copy example config"
-	@echo "  run          - Build and run the application"
-	@echo "  help         - Show this help message"
+	@echo "  build                    - Build the binary"
+	@echo "  clean                    - Clean build artifacts"
+	@echo "  test                     - Run tests"
+	@echo "  coverage                 - Run tests with coverage report"
+	@echo "  deps                     - Download and tidy dependencies"
+	@echo "  fmt                      - Format code"
+	@echo "  vet                      - Vet code"
+	@echo "  lint                     - Lint code (requires golangci-lint)"
+	@echo "  build-all                - Cross compile for all platforms"
+	@echo "  docker-build             - Build Docker image"
+	@echo "  docker-run               - Run Docker container"
+	@echo "  dev                      - Run all development checks"
+	@echo "  install                  - Install binary to /usr/local/bin"
+	@echo "  release                  - Create release packages"
+	@echo "  package-claude-extension - Package Claude Desktop extension"
+	@echo "  install-claude-extension - Install Claude Desktop extension locally"
+	@echo "  run-example              - Copy example config"
+	@echo "  run                      - Build and run the application"
+	@echo "  help                     - Show this help message"

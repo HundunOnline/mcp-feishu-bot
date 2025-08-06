@@ -1,0 +1,90 @@
+{
+  "name": "MCP Feishu Bot",
+  "id": "mcp-feishu-bot",
+  "version": "1.0.0",
+  "description": "发送各种类型的飞书消息，支持文本、富文本、图片、交互式卡片等，提供三种安全验证模式",
+  "author": "MCP-Feishu Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/HundunOnline/mcp-feishu-bot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HundunOnline/mcp-feishu-bot.git"
+  },
+  "keywords": [
+    "feishu",
+    "lark", 
+    "mcp",
+    "claude",
+    "messaging",
+    "webhook",
+    "bot"
+  ],
+  "mcp": {
+    "server": {
+      "command": "mcp-feishu",
+      "args": ["-env"],
+      "description": "MCP服务器，用于发送飞书消息",
+      "capabilities": [
+        "tools"
+      ]
+    }
+  },
+  "requirements": {
+    "os": ["darwin", "linux", "windows"],
+    "claude_desktop": ">=1.0.0"
+  },
+  "tools": [
+    {
+      "name": "send_text_message",
+      "description": "发送纯文本消息到飞书"
+    },
+    {
+      "name": "send_post_message", 
+      "description": "发送富文本消息到飞书，支持格式化文本、链接等"
+    },
+    {
+      "name": "send_image_message",
+      "description": "发送图片消息到飞书"
+    },
+    {
+      "name": "send_interactive_message",
+      "description": "发送交互式消息卡片到飞书"
+    },
+    {
+      "name": "send_share_chat_message",
+      "description": "发送群聊分享卡片到飞书"
+    }
+  ],
+  "configuration": {
+    "required": [
+      "FEISHU_WEBHOOK_URL"
+    ],
+    "optional": [
+      "FEISHU_SECURITY_TYPE",
+      "FEISHU_SECRET", 
+      "FEISHU_KEYWORDS"
+    ],
+    "schema": {
+      "FEISHU_WEBHOOK_URL": {
+        "type": "string",
+        "description": "飞书机器人的Webhook URL",
+        "pattern": "^https://open\\.feishu\\.cn/open-apis/bot/v2/hook/.+"
+      },
+      "FEISHU_SECURITY_TYPE": {
+        "type": "string",
+        "description": "安全验证类型",
+        "enum": ["none", "signature", "keyword"],
+        "default": "none"
+      },
+      "FEISHU_SECRET": {
+        "type": "string",
+        "description": "签名验证密钥（当security_type为signature时必需）"
+      },
+      "FEISHU_KEYWORDS": {
+        "type": "string",
+        "description": "关键词列表，JSON格式（当security_type为keyword时必需）",
+        "example": "[\"关键词1\", \"关键词2\"]"
+      }
+    }
+  }
+}

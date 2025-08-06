@@ -18,6 +18,28 @@
 2. **签名校验** (`signature`) - 使用HMAC-SHA256进行签名验证
 3. **自定义关键词** (`keyword`) - 消息必须包含指定关键词
 
+## 🚀 Claude Desktop 扩展
+
+**推荐方式：直接在 Claude Desktop 中使用！**
+
+### 一键安装
+```bash
+# macOS / Linux
+curl -fsSL https://raw.githubusercontent.com/HundunOnline/mcp-feishu-bot/main/claude-extension/install.sh | bash
+
+# Windows: 下载并运行 install.bat（需要管理员权限）
+```
+
+安装后重启 Claude Desktop，然后您就可以在对话中直接使用：
+
+```
+"请发送一条测试消息到飞书：Hello from Claude!"
+```
+
+详细说明请查看：[Claude Desktop 扩展文档](claude-extension/README.md)
+
+---
+
 ## 快速开始
 
 ### 1. 安装依赖

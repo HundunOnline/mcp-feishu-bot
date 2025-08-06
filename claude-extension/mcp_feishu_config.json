@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mcp-feishu": {
+      "command": "mcp-feishu",
+      "args": ["-env"],
+      "env": {
+        "FEISHU_WEBHOOK_URL": "",
+        "FEISHU_SECURITY_TYPE": "none",
+        "FEISHU_SECRET": "",
+        "FEISHU_KEYWORDS": ""
+      }
+    }
+  }
+}
